@@ -1,12 +1,19 @@
 package com.example.dungeon.model;
 
 public class Key extends Item {
-    public Key(String name) {
-        super(name);
+    private String doorId;
+
+    public Key(String name, String doorId) {
+        super(name, "Key");
+        this.doorId = doorId;
+    }
+
+    public String getDoorId() {
+        return doorId;
     }
 
     @Override
-    public void apply(GameState ctx) {
-        System.out.println("Ключ звенит. Возможно, где-то есть дверь...");
+    public void apply(Player player) {
+        System.out.println("Это ключ от какой-то двери. Используйте команду 'use <название ключа>'.");
     }
 }

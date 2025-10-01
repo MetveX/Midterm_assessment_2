@@ -1,15 +1,36 @@
 package com.example.dungeon.model;
 
-public abstract class Item {
-    private final String name;
+import java.io.Serializable;
 
-    protected Item(String name) {
+public abstract class Item implements Serializable {
+    private String name;
+    private String type;
+
+    public Item(String name, String type) {
         this.name = name;
+        this.type = type;
     }
 
     public String getName() {
         return name;
     }
 
-    public abstract void apply(GameState ctx);
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public abstract void apply(Player player);
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

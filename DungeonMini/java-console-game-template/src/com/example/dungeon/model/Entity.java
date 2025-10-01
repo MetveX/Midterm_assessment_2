@@ -1,12 +1,22 @@
 package com.example.dungeon.model;
 
-public abstract class Entity {
-    private String name;
-    private int hp;
+import java.io.Serializable;
 
-    public Entity(String name, int hp) {
+public abstract class Entity implements Serializable {
+    private String name;
+    private int hitPoints;
+    private int attackPower;
+
+    public Entity() {
+        this.name = "Без имени";
+        this.hitPoints = 10;
+        this.attackPower = 1;
+    }
+
+    public Entity(String name, int hitPoints, int attackPower) {
         this.name = name;
-        this.hp = hp;
+        this.hitPoints = hitPoints;
+        this.attackPower = attackPower;
     }
 
     public String getName() {
@@ -17,11 +27,28 @@ public abstract class Entity {
         this.name = name;
     }
 
-    public int getHp() {
-        return hp;
+    public int getHitPoints() {
+        return hitPoints;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    public void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
+    }
+
+    public int getAttackPower() {
+        return attackPower;
+    }
+
+    public void setAttackPower(int attackPower) {
+        this.attackPower = attackPower;
+    }
+
+    public boolean isAlive() {
+        return hitPoints > 0;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s (HP: %d, ATK: %d)", name, hitPoints, attackPower);
     }
 }

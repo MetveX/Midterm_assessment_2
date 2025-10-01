@@ -1,25 +1,60 @@
 package com.example.dungeon.model;
 
-import java.util.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Player extends Entity {
-    private int attack;
-    private final List<Item> inventory = new ArrayList<>();
+public class Player extends Entity implements Serializable {
+    private List<Item> inventory;
+    private Room currentRoom;
 
-    public Player(String name, int hp, int attack) {
-        super(name, hp);
-        this.attack = attack;
+    public Player() {
+        super();
+        this.inventory = new ArrayList<>();
     }
 
-    public int getAttack() {
-        return attack;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
+    public Player(String name, int hitPoints, int attackPower) {
+        super(name, hitPoints, attackPower);
+        this.inventory = new ArrayList<>();
     }
 
     public List<Item> getInventory() {
         return inventory;
+    }
+
+    public void addItem(Item item) {
+        inventory.add(item);
+    }
+
+    public boolean removeItem(Item item) {
+        return inventory.remove(item);
+    }
+
+    public Item findItem(String itemName) {
+        for (Item item : inventory) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return getHitPoints() > 0;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s (HP: %d/%d, ATK: %d)",
+                getName(), getHitPoints(), getHitPoints(), getAttackPower());
     }
 }
